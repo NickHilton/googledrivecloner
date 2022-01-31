@@ -7,11 +7,8 @@ from tests.mock_service import MockService, File
 
 class GoogleDriveClonerTests(TestCase):
     def setUp(self) -> None:
-        mock_files = Mock()
         self.service = MockService()
-        mock_files.files.return_value = self.service
-        patch("google_connections.discovery.build", return_value=mock_files).start()
-        self.gdrive = GoogleDriveCloner()
+        self.gdrive = GoogleDriveCloner(self.service)
 
     def cache_file_info(self):
         """

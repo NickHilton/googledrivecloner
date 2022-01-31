@@ -14,10 +14,6 @@ FOLDER_TYPE = "application/vnd.google-apps.folder"
 SPREADSHEET_TYPE = "application/vnd.google-apps.spreadsheet"
 CLIENT_SECRET_PATH = os.environ.get("CLIENT_SECRET_PATH", "./client_secret.json")
 
-credentials = service_account.Credentials.from_service_account_file(
-    CLIENT_SECRET_PATH, scopes=SCOPES
-)
-
 MIME_TYPE_ORDER = {FOLDER_TYPE: 1, SPREADSHEET_TYPE: 0}
 
 DEFAULT_NUM_RETRIES = "3"
@@ -30,6 +26,9 @@ class GoogleDriveCloner:
         Build GDrive client, with auth and cache current state of file system
         """
         if not service:
+            credentials = service_account.Credentials.from_service_account_file(
+                CLIENT_SECRET_PATH, scopes=SCOPES
+            )
             service = discovery.build(
                 "drive", "v3", credentials=credentials, cache_discovery=False
             ).files()
