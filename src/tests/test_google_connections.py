@@ -1,5 +1,5 @@
 from unittest import TestCase
-from unittest.mock import patch, Mock, ANY
+from unittest.mock import patch, ANY
 
 from google_connections import GoogleDriveCloner, SPREADSHEET_TYPE, FOLDER_TYPE
 from tests.mock_service import MockService, File
