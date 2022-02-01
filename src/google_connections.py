@@ -12,7 +12,7 @@ logger = logging.getLogger(__name__)
 SCOPES = ["https://www.googleapis.com/auth/drive"]
 FOLDER_TYPE = "application/vnd.google-apps.folder"
 SPREADSHEET_TYPE = "application/vnd.google-apps.spreadsheet"
-CLIENT_SECRET_PATH = os.environ.get("CLIENT_SECRET_PATH", "./client_secret.json")
+CLIENT_SECRET_PATH = os.environ.get("CLIENT_SECRET_PATH", "../client_secret.json")
 
 MIME_TYPE_ORDER = {FOLDER_TYPE: 1, SPREADSHEET_TYPE: 0}
 
@@ -24,6 +24,8 @@ class GoogleDriveCloner:
     def __init__(self, service: discovery.Resource = None):
         """
         Build GDrive client, with auth and cache current state of file system
+        :param service: (discovery.Resource) an already authenticated service account
+            files client
         """
         if not service:
             credentials = service_account.Credentials.from_service_account_file(
@@ -161,7 +163,6 @@ class GoogleDriveCloner:
                         continue
 
                     # Otherwise, delete the already copied file
-                    print(f"deleting the file {clean_name}")
                     self._delete_file(id_to_delete)
 
                 # Move auto gen file to the destination
@@ -235,7 +236,6 @@ class GoogleDriveCloner:
         cloned = self._clone_file(file_id)
         current = self.file_info[file_id]
 
-        print(f'moving {current["name"]}')
         moved = self.move_file(
             file_id=cloned["id"],
             destination_parent_id=destination_parent_id,
@@ -295,13 +295,11 @@ class GoogleDriveCloner:
 
         # Already copied the file so skip
         if item_id in self.copied_files:
-            print("Already copied ", name)
             return None
 
         # If item is a folder then create a new folder and
         # copy all child components into
         if mimeType == FOLDER_TYPE:
-            print(f'Copying folder {item_info["name"]}')
 
             created_folder_id = self.create_folder(
                 destination_parent_id=destination_parent_id,
@@ -319,7 +317,6 @@ class GoogleDriveCloner:
                     child_files_to_copy[priority].append((file_id, created_folder_id))
 
             priorities = list(sorted(child_files_to_copy))[::-1]
-            print(f'starting subcopy under {item_info["name"]}')
             for priority in priorities:
                 for file_id, created_folder_id in child_files_to_copy[priority]:
                     self.copy_item(file_id, created_folder_id)
@@ -368,9 +365,9 @@ class GoogleDriveCloner:
         except Exception as e:
             exception = e
             failed = True
-            print("failed", e)
+            logger.info("failed", e)
 
-        print("waiting before cleanup for gDrive sync")
+        logger.info("waiting before cleanup for gDrive sync")
         time.sleep(45)
         self.run_cleanup()
 

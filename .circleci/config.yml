@@ -13,8 +13,7 @@ jobs:
           pkg-manager: pip
       - run:
           name: Run tests
-          # This assumes pytest is installed via the install-package step above
-          command: python -m unittest discover
+          command: python -m unittest discover src
 
 workflows:
   build:
