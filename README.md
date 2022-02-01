@@ -21,7 +21,7 @@ A python package for cloning google drive folders, including all subdirectories 
 Installation
 -------------
 
-To install from pypi
+To install from the [pypi release](https://pypi.org/project/googledrive-cloner/)
 ```bash
 pip install googledrive-googledrive_cloner
 ```
