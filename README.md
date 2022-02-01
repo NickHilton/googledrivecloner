@@ -23,7 +23,7 @@ Installation
 
 To install from pypi
 ```bash
-pip install googledrive-cloner
+pip install googledrive-googledrive_cloner
 ```
 
 To install locally
@@ -52,7 +52,7 @@ https://drive.google.com/drive/u/0/folders/{FOLDER_ID}
 
 The cloner can be used in the following way:
 ```python
-from googledrivecloner.google_connections import GoogleDriveCloner
+from googledrive_cloner.google_connections import GoogleDriveCloner
 googledrivecloner = GoogleDriveCloner()
 folder_id_to_copy = 'XXXXXXXX'
 destination_folder_id = 'YYYYYYYYY'

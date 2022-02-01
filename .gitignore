@@ -4,3 +4,8 @@
 ## Pycharm
 .idea
 **__pycache__*
+
+# PYPI
+*dist*
+*build*
+googledrive_cloner.egg-info
