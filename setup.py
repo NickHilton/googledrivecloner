@@ -22,7 +22,6 @@ setup(
     ],
     packages=find_packages(where="src", exclude=["*tests*"]),
     package_dir={"": "src"},
-    include_package_data=True,
     install_requires=[
         "google-auth-oauthlib>=0.4.3,<0.5",
         "google-auth-oauthlib>=0.4.3,<0.5",
