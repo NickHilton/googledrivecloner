@@ -19,6 +19,9 @@ MIME_TYPE_ORDER = {FOLDER_TYPE: 1, SPREADSHEET_TYPE: 0}
 DEFAULT_NUM_RETRIES = "3"
 NUM_RETRIES = int(os.environ.get("NUM_RETRIES", DEFAULT_NUM_RETRIES))
 
+CLEANUP_SLEEP = 45
+SPREADSHEET_SLEEP = 30
+COPY_SLEEP = 1
 
 class GoogleDriveCloner:
     def __init__(self, service: discovery.Resource = None):
@@ -245,7 +248,7 @@ class GoogleDriveCloner:
         )
         # If we just moved a spreadsheet. Pause for gDrive to catch up
         if current["mimeType"] == SPREADSHEET_TYPE:
-            time.sleep(30)
+            time.sleep(SPREADSHEET_SLEEP)
 
         # Add file to copied files store
         self.copied_files.add(file_id)
@@ -287,7 +290,7 @@ class GoogleDriveCloner:
         :return: (str) id of new copied item
         """
         # Let GDrive catch up
-        time.sleep(1)
+        time.sleep(COPY_SLEEP)
 
         item_info = self.file_info[item_id]
         name = item_info["name"]
@@ -368,7 +371,7 @@ class GoogleDriveCloner:
             logger.info("failed", e)
 
         logger.info("waiting before cleanup for gDrive sync")
-        time.sleep(45)
+        time.sleep(CLEANUP_SLEEP)
         self.run_cleanup()
 
         if failed:
