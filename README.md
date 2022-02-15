@@ -1,7 +1,7 @@
 [![CircleCI](https://circleci.com/gh/NickHilton/googledrivecloner.svg?style=svg)](https://circleci.com/gh/NickHilton/googledrivecloner)
 
 
-Google Drove Folder Cloner
+Google Drive Folder Cloner
 ============
 
 
