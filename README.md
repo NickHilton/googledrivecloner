@@ -23,7 +23,7 @@ Installation
 
 To install from the [pypi release](https://pypi.org/project/googledrive-cloner/)
 ```bash
-pip install googledrive-googledrive_cloner
+pip install googledrive_cloner
 ```
 
 To install locally
