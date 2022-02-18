@@ -8,7 +8,7 @@ README = (HERE / "README.md").read_text()
 
 setup(
     name="googledrive_cloner",
-    version="1.0.0",
+    version="1.0.2",
     description="Clone folders in Google Drive",
     long_description=README,
     long_description_content_type="text/markdown",
