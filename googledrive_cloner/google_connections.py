@@ -279,7 +279,7 @@ class GoogleDriveCloner:
 
     def copy_item(
         self, item_id: str, destination_parent_id: str, new_name: Optional[str] = None
-    ):
+    ) -> Optional[str]:
         """
         Copy an item (folder or other type) in GDrive
             If folder will recursively copy all descendant files
@@ -287,7 +287,7 @@ class GoogleDriveCloner:
         :param item_id: (str) item id to copy
         :param destination_parent_id: (str) id of folder to copy item to
         :param new_name: (str or None) name of file
-        :return: (str) id of new copied item
+        :return: (str or None) id of new copied item or None if already copied
         """
         # Let GDrive catch up
         time.sleep(COPY_SLEEP)
@@ -347,20 +347,21 @@ class GoogleDriveCloner:
         base_folder_id: str,
         destination_parent_folder_id: str,
         new_name: Optional[str] = None,
-    ):
+    ) -> Optional[str]:
         """
         Run the main functionality, copying a folder to a new parent
 
         :param base_folder_id: (str) folder id to copy
         :param destination_parent_folder_id: (str) id of folder to copy base folder to
         :param new_name: (str or None) name of file
-        :return: (str) id of new copied folder
+        :return: (str or None) id of new copied folder or None if already copied
         """
 
         failed = False
         exception = None
+        result = None
         try:
-            self.copy_item(
+            result = self.copy_item(
                 item_id=base_folder_id,
                 destination_parent_id=destination_parent_folder_id,
                 new_name=new_name,
@@ -376,3 +377,6 @@ class GoogleDriveCloner:
 
         if failed:
             raise exception
+
+        return result
+
