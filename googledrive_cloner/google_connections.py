@@ -359,8 +359,9 @@ class GoogleDriveCloner:
 
         failed = False
         exception = None
+        result = None
         try:
-            self.copy_item(
+            result = self.copy_item(
                 item_id=base_folder_id,
                 destination_parent_id=destination_parent_folder_id,
                 new_name=new_name,
@@ -376,3 +377,6 @@ class GoogleDriveCloner:
 
         if failed:
             raise exception
+
+        return result
+
