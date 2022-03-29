@@ -8,7 +8,7 @@ README = (HERE / "README.md").read_text()
 
 setup(
     name="googledrive_cloner",
-    version="1.0.2",
+    version="1.0.3",
     description="Clone folders in Google Drive",
     long_description=README,
     long_description_content_type="text/markdown",
@@ -23,6 +23,6 @@ setup(
     packages=find_packages(exclude=["*tests*"]),
     install_requires=[
         "google-auth-oauthlib>=0.4.3,<0.5",
-        "google-auth-oauthlib>=0.4.3,<0.5",
+        "google-api-python-client>=2.0.2,<2.1",
     ],
 )
